@@ -10,14 +10,14 @@ const Sequelize = require("sequelize");
 
 const sequelize = require("../../sequelize");
 
-const VendorModel = sequelize.define(
-    'vendor',     //table name
+const WarehouseModel = sequelize.define(
+    'warehouse',     //table name
     {
         name: {
             type: Sequelize.STRING,
             allowNull: false
         },
-        address: {
+        position: {
             type: Sequelize.STRING
         },
         status: {
@@ -43,4 +43,4 @@ const VendorModel = sequelize.define(
     }
 );
 
-module.exports = VendorModel;
+module.exports = WarehouseModel;

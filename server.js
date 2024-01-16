@@ -8,17 +8,27 @@
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const express = require('express');
-const Routes = require("./routes");
-const sequelize = require("./sequelize");
 
+const config = require("./config");
+let { connectToMysql } = require("./db");
+const rateLimiter = require("./utility/rateLimiter");
+const routes = require("./v1/routes");
 
 const app = express();
 
-app.use(bodyParser.json());
-app.use(cors());
+const corsOptions = {
+    // origin: ['http://localhost:5173', 'http://localhost:5174'],       //this will allow multiple domains to connect
+    credentials: true,                                                //access-control-allow-credentials:true
+    optionSuccessStatus: 200
+}
 
-app.use('/', Routes);
+app.use(bodyParser.json({ limit: "20mb" }));
+app.use(bodyParser.urlencoded({ limit: "20mb", extended: true, parameterLimit: 50000 }));
+app.use(cors(corsOptions));
+app.use(rateLimiter);
 
-app.listen(8081, () => {
-    console.log(`Server running on port ${port}`);
+app.use('/api/v1', routes);
+
+app.listen(config.PORT, () => {
+    console.log(`Server running on port ${config.PORT}`);
 });

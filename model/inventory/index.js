@@ -10,19 +10,27 @@ const Sequelize = require("sequelize");
 
 const sequelize = require("../../sequelize");
 
-const VendorModel = sequelize.define(
-    'vendor',     //table name
+const InventoryModel = sequelize.define(
+    'inventory',     //table name
     {
-        name: {
+        available_quantity: {
             type: Sequelize.STRING,
             allowNull: false
         },
-        address: {
-            type: Sequelize.STRING
+        min_stock_level: {
+            type: Sequelize.INTEGER
         },
-        status: {
-            type: Sequelize.ENUM,
-            values: ['active', 'inactive']
+        max_stock_level: {
+            type: Sequelize.INTEGER
+        },
+        reorder_point: {
+            type: Sequelize.INTEGER
+        },
+        created_by: {
+            type: Sequelize.INTEGER
+        },
+        updated_by: {
+            type: Sequelize.INTEGER
         },
         created_at: {
             type: 'TIMESTAMP'
@@ -30,12 +38,6 @@ const VendorModel = sequelize.define(
         updated_at: {
             type: 'TIMESTAMP'
         },
-        created_by: {
-            type: Sequelize.INTEGER
-        },
-        updated_by: {
-            type: Sequelize.INTEGER
-        }
     },
     {
         timestamps: false,
@@ -43,4 +45,4 @@ const VendorModel = sequelize.define(
     }
 );
 
-module.exports = VendorModel;
+module.exports = InventoryModel;

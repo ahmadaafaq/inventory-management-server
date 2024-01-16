@@ -10,15 +10,28 @@ const Sequelize = require("sequelize");
 
 const sequelize = require("../../sequelize");
 
-const VendorModel = sequelize.define(
-    'vendor',     //table name
+const ProductModel = sequelize.define(
+    'products',     //table name
     {
+        code: {
+            type: Sequelize.INTEGER,
+            allowNull: false
+        },
         name: {
             type: Sequelize.STRING,
             allowNull: false
         },
-        address: {
+        barcode: {
             type: Sequelize.STRING
+        },
+        description: {
+            type: Sequelize.STRING
+        },
+        category: {
+            type: Sequelize.STRING
+        },
+        quantity: {
+            type: Sequelize.INTEGER
         },
         status: {
             type: Sequelize.ENUM,
@@ -43,4 +56,4 @@ const VendorModel = sequelize.define(
     }
 );
 
-module.exports = VendorModel;
+module.exports = ProductModel;
