@@ -1,16 +1,16 @@
 const { Op } = require("sequelize");
 
-const WarehouseModel = require("../../model/warehouse");
+const OrderModel = require("../../model/order");
 const Utility = require("../../utility");
 
-const warehouseController = {
+const orderController = {
     /** Create student in the database
      */
-    createWarehouse: (req, res) => {
+    createOrder: (req, res) => {
         const payload = req.body;
 
         return new Promise((resolve, reject) => {
-            WarehouseModel.create({ ...payload })
+            OrderModel.create({ ...payload })
                 .then(student => {
                     resolve(res.status(200).send(Utility.formatResponse(200, { id: student.id })));
                 })
@@ -21,7 +21,7 @@ const warehouseController = {
     },
     /** Get users from database based on page, size and search if provided
      */
-    getWarehouse: (req, res) => {
+    getOrders: (req, res) => {
         const { page, size, search } = req.query;
         const { limit, offset } = Utility.getPagination(parseInt(page), parseInt(size));
         let searchCond = {};
@@ -30,13 +30,8 @@ const warehouseController = {
             searchCond = {
                 [Op.or]: [
                     {
-                        name: {
+                        date: {
                             [Op.like]: `%${search}%`
-                        }
-                    },
-                    {
-                        position: {
-                            [Op.like]: `${search}%`
                         }
                     }
                 ]
@@ -44,7 +39,7 @@ const warehouseController = {
         }
 
         return new Promise((resolve, reject) => {
-            WarehouseModel.findAndCountAll({
+            OrderModel.findAndCountAll({
                 where: { ...searchCond },
                 // order: [["updated_at", "DESC"]]
             })
@@ -66,11 +61,11 @@ const warehouseController = {
 
     /** Updating vendor in the database
      */
-    updateWarehouse: (req, res) => {
+    updateOrder: (req, res) => {
         const payload = req.body;
 
         return new Promise((resolve, reject) => {
-            WarehouseModel.update({ ...payload }, { where: { id: req.body.id } })
+            OrderModel.update({ ...payload }, { where: { id: req.body.id} })
                 .then(updatedData => {
                     resolve(res.status(200).send(Utility.formatResponse(200, `Updated Successfully`)));
                 })
@@ -81,4 +76,4 @@ const warehouseController = {
     }
 };
 
-module.exports = warehouseController;
+module.exports = orderController;

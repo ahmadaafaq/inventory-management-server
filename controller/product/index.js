@@ -58,11 +58,6 @@ const productController = {
                         quantity: {
                             [Op.like]: `${search}%`
                         }
-                    },
-                    {
-                        status: {
-                            [Op.like]: `${search}%`
-                        }
                     }
                 ]
             };

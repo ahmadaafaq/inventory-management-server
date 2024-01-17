@@ -10,15 +10,17 @@ const Sequelize = require("sequelize");
 
 const sequelize = require("../../sequelize");
 
-const VendorModel = sequelize.define(
-    'vendor',     //table name
+const OrderModel = sequelize.define(
+    'order',     //table name
     {
-        name: {
-            type: Sequelize.STRING,
-            allowNull: false
+        date: {
+            type: "TIMESTAMP"
         },
-        address: {
-            type: Sequelize.STRING
+        created_by: {
+            type: Sequelize.INTEGER
+        },
+        updated_by: {
+            type: Sequelize.INTEGER
         }
     },
     {
@@ -27,4 +29,4 @@ const VendorModel = sequelize.define(
     }
 );
 
-module.exports = VendorModel;
+module.exports = OrderModel;

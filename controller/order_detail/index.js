@@ -1,16 +1,16 @@
 const { Op } = require("sequelize");
 
-const WarehouseModel = require("../../model/warehouse");
+const OrderDetailModel = require("../../model/order_detail");
 const Utility = require("../../utility");
 
-const warehouseController = {
+const orderDetailController = {
     /** Create student in the database
      */
-    createWarehouse: (req, res) => {
+    createOrderDetail: (req, res) => {
         const payload = req.body;
 
         return new Promise((resolve, reject) => {
-            WarehouseModel.create({ ...payload })
+            OrderDetailModel.create({ ...payload })
                 .then(student => {
                     resolve(res.status(200).send(Utility.formatResponse(200, { id: student.id })));
                 })
@@ -21,7 +21,7 @@ const warehouseController = {
     },
     /** Get users from database based on page, size and search if provided
      */
-    getWarehouse: (req, res) => {
+    getOrderDetail: (req, res) => {
         const { page, size, search } = req.query;
         const { limit, offset } = Utility.getPagination(parseInt(page), parseInt(size));
         let searchCond = {};
@@ -30,13 +30,18 @@ const warehouseController = {
             searchCond = {
                 [Op.or]: [
                     {
-                        name: {
+                        quantity: {
                             [Op.like]: `%${search}%`
                         }
                     },
                     {
-                        position: {
-                            [Op.like]: `${search}%`
+                        expected_date: {
+                            [Op.like]: `%${search}%`
+                        }
+                    },
+                    {
+                        actual_date: {
+                            [Op.like]: `%${search}%`
                         }
                     }
                 ]
@@ -44,9 +49,9 @@ const warehouseController = {
         }
 
         return new Promise((resolve, reject) => {
-            WarehouseModel.findAndCountAll({
+            OrderDetailModel.findAndCountAll({
                 where: { ...searchCond },
-                // order: [["updated_at", "DESC"]]
+               // order: [["updated_at", "DESC"]]
             })
                 .then(list => {
                     const { count, rows } = list;
@@ -66,11 +71,11 @@ const warehouseController = {
 
     /** Updating vendor in the database
      */
-    updateWarehouse: (req, res) => {
+    updateOrderDetail: (req, res) => {
         const payload = req.body;
 
         return new Promise((resolve, reject) => {
-            WarehouseModel.update({ ...payload }, { where: { id: req.body.id } })
+            OrderDetailModel.update({ ...payload }, { where: { id: req.body.id} })
                 .then(updatedData => {
                     resolve(res.status(200).send(Utility.formatResponse(200, `Updated Successfully`)));
                 })
@@ -81,4 +86,4 @@ const warehouseController = {
     }
 };
 
-module.exports = warehouseController;
+module.exports = orderDetailController;

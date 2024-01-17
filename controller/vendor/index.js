@@ -11,8 +11,8 @@ const vendorController = {
 
         return new Promise((resolve, reject) => {
             VendorModel.create({ ...payload })
-                .then(student => {
-                    resolve(res.status(200).send(Utility.formatResponse(200, { id: student.id })));
+                .then(vendor => {
+                    resolve(res.status(200).send(Utility.formatResponse(200, { id: vendor.id })));
                 })
                 .catch(err => {
                     resolve(res.status(409).send(Utility.formatResponse(409, "Error")));
@@ -38,11 +38,6 @@ const vendorController = {
                         address: {
                             [Op.like]: `${search}%`
                         }
-                    },
-                    {
-                        status: {
-                            [Op.like]: `${search}%`
-                        }
                     }
                 ]
             };
@@ -51,7 +46,7 @@ const vendorController = {
         return new Promise((resolve, reject) => {
             VendorModel.findAndCountAll({
                 where: { ...searchCond },
-                order: [["updated_at", "DESC"]]
+               // order: [["updated_at", "DESC"]]
             })
                 .then(list => {
                     const { count, rows } = list;

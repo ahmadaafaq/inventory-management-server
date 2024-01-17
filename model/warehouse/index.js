@@ -1,9 +1,9 @@
 /**
- * Copyright © 2023, School CRM Inc. ALL RIGHTS RESERVED.
+ * Copyright © 2024, CodeVamp Technologies  Inc. ALL RIGHTS RESERVED.
  *
- * This software is the confidential information of School CRM Inc., and is licensed as
+ * This software is the confidential information of CodeVamp Technologies  Inc., and is licensed as
  * restricted rights software. The use,reproduction, or disclosure of this software is subject to
- * restrictions set forth in your license agreement with School CRM.
+ * restrictions set forth in your license agreement with CodeVamp Technologies .
  */
 
 const Sequelize = require("sequelize");
@@ -19,22 +19,6 @@ const WarehouseModel = sequelize.define(
         },
         position: {
             type: Sequelize.STRING
-        },
-        status: {
-            type: Sequelize.ENUM,
-            values: ['active', 'inactive']
-        },
-        created_at: {
-            type: 'TIMESTAMP'
-        },
-        updated_at: {
-            type: 'TIMESTAMP'
-        },
-        created_by: {
-            type: Sequelize.INTEGER
-        },
-        updated_by: {
-            type: Sequelize.INTEGER
         }
     },
     {

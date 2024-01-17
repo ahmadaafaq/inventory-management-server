@@ -10,16 +10,19 @@ const Sequelize = require("sequelize");
 
 const sequelize = require("../../sequelize");
 
-const VendorModel = sequelize.define(
-    'vendor',     //table name
+const OrderDetailModel = sequelize.define(
+    'order_detail',     //table name
     {
-        name: {
-            type: Sequelize.STRING,
+        quantity: {
+            type: Sequelize.INTEGER,
             allowNull: false
         },
-        address: {
-            type: Sequelize.STRING
-        }
+        expected_date: {
+            type:  'TIMESTAMP'
+        },
+        actual_date: {
+            type: 'TIMESTAMP'
+        },
     },
     {
         timestamps: false,
@@ -27,4 +30,4 @@ const VendorModel = sequelize.define(
     }
 );
 
-module.exports = VendorModel;
+module.exports = OrderDetailModel;

@@ -1,9 +1,9 @@
 /**
- * Copyright © 2023, School CRM Inc. ALL RIGHTS RESERVED.
+ * Copyright © 2024, CodeVamp Technologies  Inc. ALL RIGHTS RESERVED.
  *
- * This software is the confidential information of School CRM Inc., and is licensed as
+ * This software is the confidential information of CodeVamp Technologies  Inc., and is licensed as
  * restricted rights software. The use,reproduction, or disclosure of this software is subject to
- * restrictions set forth in your license agreement with School CRM.
+ * restrictions set forth in your license agreement with CodeVamp Technologies .
  */
 
 const dotenv = require('dotenv');
@@ -16,7 +16,7 @@ dotenv.config({
 module.exports = {
     NODE_ENV: process.env.NODE_ENV || 'local',
     HOST: process.env.HOST || 'localhost',
-    PORT: process.env.PORT || 8082,
+    PORT: process.env.PORT || 8081,
     DB: process.env.DB || 'inventory-management',
     DB_PORT: process.env.DB_PORT || 3306,
     DB_USERNAME: process.env.DB_USERNAME || 'root',
