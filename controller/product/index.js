@@ -8,11 +8,11 @@ const productController = {
      */
     createProduct: (req, res) => {
         const payload = req.body;
-
+       
         return new Promise((resolve, reject) => {
             ProductModel.create({ ...payload })
-                .then(student => {
-                    resolve(res.status(200).send(Utility.formatResponse(200, { id: student.id })));
+                .then(product => {
+                    resolve(res.status(200).send(Utility.formatResponse(200, { id: product.id })));
                 })
                 .catch(err => {
                     resolve(res.status(409).send(Utility.formatResponse(409, "Error")));

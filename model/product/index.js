@@ -6,7 +6,7 @@
  * restrictions set forth in your license agreement with CodeVamp Technologies .
  */
 
-const Sequelize = require("sequelize");
+const {Sequelize, DataTypes} = require("sequelize");
 
 const sequelize = require("../../sequelize");
 
@@ -14,7 +14,7 @@ const ProductModel = sequelize.define(
     'product',     //table name
     {
         code: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.STRING,
             allowNull: false
         },
         name: {
@@ -34,11 +34,14 @@ const ProductModel = sequelize.define(
             type: Sequelize.INTEGER
         },
         created_at: {
-            type: 'TIMESTAMP'
+            type: DataTypes.DATE,
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
         },
         updated_at: {
-            type: 'TIMESTAMP'
-        },
+            type: DataTypes.DATE,
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+            onUpdate: Sequelize.literal('CURRENT_TIMESTAMP')
+          },
         created_by: {
             type: Sequelize.INTEGER
         },

@@ -8,13 +8,15 @@ const vendorController = {
      */
     createVendor: (req, res) => {
         const payload = req.body;
-
+        console.log('paaayloaddd=>',payload);
         return new Promise((resolve, reject) => {
             VendorModel.create({ ...payload })
                 .then(vendor => {
+                    console.log('vendorrrr=>',vendor);
                     resolve(res.status(200).send(Utility.formatResponse(200, { id: vendor.id })));
                 })
                 .catch(err => {
+                    console.log('eeeerrror=>',err);
                     resolve(res.status(409).send(Utility.formatResponse(409, "Error")));
                 });
         });
@@ -35,7 +37,7 @@ const vendorController = {
                         }
                     },
                     {
-                        address: {
+                        status: {
                             [Op.like]: `${search}%`
                         }
                     }
@@ -45,8 +47,8 @@ const vendorController = {
 
         return new Promise((resolve, reject) => {
             VendorModel.findAndCountAll({
-                where: { ...searchCond },
-               // order: [["updated_at", "DESC"]]
+                limit, offset, where: { ...searchCond },
+                // order: [["updated_at", "DESC"]]
             })
                 .then(list => {
                     const { count, rows } = list;
@@ -70,7 +72,7 @@ const vendorController = {
         const payload = req.body;
 
         return new Promise((resolve, reject) => {
-            VendorModel.update({ ...payload }, { where: { id: req.body.id} })
+            VendorModel.update({ ...payload }, { where: { id: req.body.id } })
                 .then(updatedData => {
                     resolve(res.status(200).send(Utility.formatResponse(200, `Updated Successfully`)));
                 })

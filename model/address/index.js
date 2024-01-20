@@ -1,34 +1,42 @@
 /**
- * Copyright © 2024, CodeVamp Technologies  Inc. ALL RIGHTS RESERVED.
+ * Copyright © 2023, School CRM Inc. ALL RIGHTS RESERVED.
  *
- * This software is the confidential information of CodeVamp Technologies  Inc., and is licensed as
+ * This software is the confidential information of School CRM Inc., and is licensed as
  * restricted rights software. The use,reproduction, or disclosure of this software is subject to
- * restrictions set forth in your license agreement with CodeVamp Technologies .
+ * restrictions set forth in your license agreement with School CRM.
  */
 
 const {Sequelize , DataTypes} = require("sequelize");
 
 const sequelize = require("../../sequelize");
 
-const InventoryModel = sequelize.define(
-    'inventory',     //table name
+const AddressModel = sequelize.define(
+    'address',        //table name
     {
-        available_quantity: {
-            type: Sequelize.INTEGER,
-            allowNull: false
-        },
-        min_stock_level: {
-            type: Sequelize.INTEGER
-        },
-        max_stock_level: {
-            type: Sequelize.INTEGER
-        },
-        reorder_point: {
-            type: Sequelize.INTEGER
-        },
-        status: {
+        parent: {
             type: Sequelize.ENUM,
-            values: ['active', 'inactive']
+            values: ['user', 'warehouse', 'vendor','product']
+        },
+        parent_id: {
+            type: Sequelize.INTEGER
+        },
+        street: {
+            type: Sequelize.STRING
+        },
+        landmark: {
+            type: Sequelize.STRING
+        },
+        zipcode: {
+            type: Sequelize.STRING
+        },
+        city: {
+            type: Sequelize.INTEGER
+        },
+        state: {
+            type: Sequelize.INTEGER
+        },
+        country: {
+            type: Sequelize.INTEGER
         },
         created_at: {
             type: DataTypes.DATE,
@@ -51,4 +59,4 @@ const InventoryModel = sequelize.define(
     }
 );
 
-module.exports = InventoryModel;
+module.exports = AddressModel;

@@ -55,6 +55,23 @@ const Utility = {
         };
     },
 
+     /**
+     * Get Schema Model according to tableName
+     * @param {String} tableName 
+     * @return {Object} Schema Model
+     */
+     getModel: (tableName) => {
+        let model;
+        switch (tableName) {
+            case 'vendor':
+                model = require("../model/vendor");
+                break;
+            default:
+                break;
+        };
+        return model;
+    },
+
     /**
      * Get API limit and offset
      * @param {Integer} page

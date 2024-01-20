@@ -16,7 +16,7 @@ dotenv.config({
 module.exports = {
     NODE_ENV: process.env.NODE_ENV || 'local',
     HOST: process.env.HOST || 'localhost',
-    PORT: process.env.PORT || 8081,
+    PORT: process.env.PORT || 8082,
     DB: process.env.DB || 'inventory-management',
     DB_PORT: process.env.DB_PORT || 3306,
     DB_USERNAME: process.env.DB_USERNAME || 'root',
