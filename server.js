@@ -1,24 +1,35 @@
 /**
- * Copyright © 2023, School CRM Inc. ALL RIGHTS RESERVED.
+ * Copyright © 2024, CodeVamp Technologies  Inc. ALL RIGHTS RESERVED.
  *
- * This software is the confidential information of School CRM Inc., and is licensed as
+ * This software is the confidential information of CodeVamp Technologies  Inc., and is licensed as
  * restricted rights software. The use, reproduction, or disclosure of this software is subject to
- * restrictions set forth in your license agreement with School CRM.
+ * restrictions set forth in your license agreement with CodeVamp Technologies .
  */
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const express = require('express');
-const Routes = require("./routes");
-const sequelize = require("./sequelize");
 
+const config = require("./config");
+let { connectToMysql } = require("./db");
+const rateLimiter = require("./utility/rateLimiter");
+const routes = require("./v1/routes");
 
 const app = express();
 
-app.use(bodyParser.json());
-app.use(cors());
+const corsOptions = {
+    origin: ['http://localhost:5173', 'http://localhost:5174'],     //this will allow multiple domains to connect
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,                                                //access-control-allow-credentials:true
+    optionSuccessStatus: 200
+}
 
-app.use('/', Routes);
+app.use(bodyParser.json({ limit: "20mb" }));
+app.use(bodyParser.urlencoded({ limit: "20mb", extended: true, parameterLimit: 50000 }));
+app.use(cors(corsOptions));
+app.use(rateLimiter);
 
-app.listen(8081, () => {
-    console.log(`Server running on port ${port}`);
+app.use('/api/v1', routes);
+
+app.listen(config.PORT, () => {
+    console.log(`Server running on port ${config.PORT}`);
 });

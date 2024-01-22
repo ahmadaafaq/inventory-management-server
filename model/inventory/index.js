@@ -6,30 +6,36 @@
  * restrictions set forth in your license agreement with CodeVamp Technologies .
  */
 
-const { Sequelize, DataTypes } = require('sequelize');
+const {Sequelize , DataTypes} = require("sequelize");
 
 const sequelize = require("../../sequelize");
 
-const VendorModel = sequelize.define(
-    'vendor',     //table name
-    {
+const InventoryModel = sequelize.define(
+    'inventory',     //table name
+    {   
         name: {
             type: Sequelize.STRING,
             allowNull: false
         },
-        email: {
-            type: Sequelize.STRING
-        },
-        contact_no: {
-            type: Sequelize.STRING,
+        available_quantity: {
+            type: Sequelize.INTEGER,
             allowNull: false
+        },
+        min_stock_level: {
+            type: Sequelize.INTEGER
+        },
+        max_stock_level: {
+            type: Sequelize.INTEGER
+        },
+        reorder_point: {
+            type: Sequelize.INTEGER
         },
         status: {
             type: Sequelize.ENUM,
             values: ['active', 'inactive']
         },
         created_at: {
-            type:  "TIMESTAMP"
+            type: "TIMESTAMP"
         },
         updated_at: {
             type: "TIMESTAMP"
@@ -47,4 +53,4 @@ const VendorModel = sequelize.define(
     }
 );
 
-module.exports = VendorModel;
+module.exports = InventoryModel;

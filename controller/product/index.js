@@ -1,29 +1,29 @@
 const { Op } = require("sequelize");
 
-const VendorModel = require("../../model/vendor");
+const ProductModel = require("../../model/product");
 const Utility = require("../../utility");
 
-const vendorController = {
+const productController = {
     /** Create student in the database
      */
-    createVendor: (req, res) => {
+    createProduct: (req, res) => {
         const payload = req.body;
-        console.log('paaayloaddd=>',payload);
+       
         return new Promise((resolve, reject) => {
-            VendorModel.create({ ...payload })
-                .then(vendor => {
-                    console.log('vendorrrr=>',vendor);
-                    resolve(res.status(200).send(Utility.formatResponse(200, { id: vendor.id })));
+            ProductModel.create({ ...payload })
+                .then(product => {
+                    console.log('produccctttt=>',product);
+                    resolve(res.status(200).send(Utility.formatResponse(200, { id: product.id })));
                 })
                 .catch(err => {
-                    console.log('eeeerrror=>',err);
+                    console.log('errrrrooor=>',err);
                     resolve(res.status(409).send(Utility.formatResponse(409, "Error")));
                 });
         });
     },
     /** Get users from database based on page, size and search if provided
      */
-    getVendors: (req, res) => {
+    getProducts: (req, res) => {
         const { page, size, search } = req.query;
         const { limit, offset } = Utility.getPagination(parseInt(page), parseInt(size));
         let searchCond = {};
@@ -32,12 +32,32 @@ const vendorController = {
             searchCond = {
                 [Op.or]: [
                     {
+                        code: {
+                            [Op.like]: `%${search}%`
+                        }
+                    },
+                    {
                         name: {
                             [Op.like]: `%${search}%`
                         }
                     },
                     {
-                        status: {
+                        barcode: {
+                            [Op.like]: `${search}%`
+                        }
+                    },
+                    {
+                        description: {
+                            [Op.like]: `${search}%`
+                        }
+                    },
+                    {
+                        category: {
+                            [Op.like]: `${search}%`
+                        }
+                    },
+                    {
+                        quantity: {
                             [Op.like]: `${search}%`
                         }
                     }
@@ -46,9 +66,9 @@ const vendorController = {
         }
 
         return new Promise((resolve, reject) => {
-            VendorModel.findAndCountAll({
-                limit, offset, where: { ...searchCond },
-                // order: [["updated_at", "DESC"]]
+            ProductModel.findAndCountAll({
+                where: { ...searchCond },
+                order: [["updated_at", "DESC"]]
             })
                 .then(list => {
                     const { count, rows } = list;
@@ -68,11 +88,11 @@ const vendorController = {
 
     /** Updating vendor in the database
      */
-    updateVendor: (req, res) => {
+    updateProduct: (req, res) => {
         const payload = req.body;
 
         return new Promise((resolve, reject) => {
-            VendorModel.update({ ...payload }, { where: { id: req.body.id } })
+            ProductModel.update({ ...payload }, { where: { id: req.body.id } })
                 .then(updatedData => {
                     resolve(res.status(200).send(Utility.formatResponse(200, `Updated Successfully`)));
                 })
@@ -83,4 +103,4 @@ const vendorController = {
     }
 };
 
-module.exports = vendorController;
+module.exports = productController;

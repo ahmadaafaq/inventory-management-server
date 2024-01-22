@@ -1,29 +1,27 @@
 const { Op } = require("sequelize");
 
-const VendorModel = require("../../model/vendor");
+const WarehouseModel = require("../../model/warehouse");
 const Utility = require("../../utility");
 
-const vendorController = {
+const warehouseController = {
     /** Create student in the database
      */
-    createVendor: (req, res) => {
+    createWarehouse: (req, res) => {
         const payload = req.body;
-        console.log('paaayloaddd=>',payload);
+
         return new Promise((resolve, reject) => {
-            VendorModel.create({ ...payload })
-                .then(vendor => {
-                    console.log('vendorrrr=>',vendor);
-                    resolve(res.status(200).send(Utility.formatResponse(200, { id: vendor.id })));
+            WarehouseModel.create({ ...payload })
+                .then(student => {
+                    resolve(res.status(200).send(Utility.formatResponse(200, { id: student.id })));
                 })
                 .catch(err => {
-                    console.log('eeeerrror=>',err);
                     resolve(res.status(409).send(Utility.formatResponse(409, "Error")));
                 });
         });
     },
     /** Get users from database based on page, size and search if provided
      */
-    getVendors: (req, res) => {
+    getWarehouse: (req, res) => {
         const { page, size, search } = req.query;
         const { limit, offset } = Utility.getPagination(parseInt(page), parseInt(size));
         let searchCond = {};
@@ -37,7 +35,7 @@ const vendorController = {
                         }
                     },
                     {
-                        status: {
+                        position: {
                             [Op.like]: `${search}%`
                         }
                     }
@@ -46,8 +44,8 @@ const vendorController = {
         }
 
         return new Promise((resolve, reject) => {
-            VendorModel.findAndCountAll({
-                limit, offset, where: { ...searchCond },
+            WarehouseModel.findAndCountAll({
+                where: { ...searchCond },
                 // order: [["updated_at", "DESC"]]
             })
                 .then(list => {
@@ -68,11 +66,11 @@ const vendorController = {
 
     /** Updating vendor in the database
      */
-    updateVendor: (req, res) => {
+    updateWarehouse: (req, res) => {
         const payload = req.body;
 
         return new Promise((resolve, reject) => {
-            VendorModel.update({ ...payload }, { where: { id: req.body.id } })
+            WarehouseModel.update({ ...payload }, { where: { id: req.body.id } })
                 .then(updatedData => {
                     resolve(res.status(200).send(Utility.formatResponse(200, `Updated Successfully`)));
                 })
@@ -83,4 +81,4 @@ const vendorController = {
     }
 };
 
-module.exports = vendorController;
+module.exports = warehouseController;

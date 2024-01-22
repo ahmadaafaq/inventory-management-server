@@ -1,15 +1,17 @@
-const { Sequelize } = require("sequelize");
+const Sequelize = require("sequelize");
 
-const sequelize = new Sequelize('inventory-management', 'root', '', {
-    host: 'localhost',
-    dialect: "mysql"      
+const config = require("./config");
+
+const sequelize = new Sequelize(config.DB, config.DB_USERNAME, config.DB_PASSWORD, {
+  host: config.HOST,
+  port: config.DB_PORT,
+    dialect: "mysql", 
+    dialectOptions: {
+      useUTC: false,      //for reading from the database
+      // dateStrings: true,
+      // typeCast: true
+      // timezone: "Asia/Kolkata"   //for writing to the database
+  }     
 });
-
-try {
-    sequelize.authenticate();
-    console.log('Connection has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-  }
 
 module.exports = sequelize;
