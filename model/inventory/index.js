@@ -12,7 +12,11 @@ const sequelize = require("../../sequelize");
 
 const InventoryModel = sequelize.define(
     'inventory',     //table name
-    {
+    {   
+        name: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
         available_quantity: {
             type: Sequelize.INTEGER,
             allowNull: false
@@ -31,12 +35,10 @@ const InventoryModel = sequelize.define(
             values: ['active', 'inactive']
         },
         created_at: {
-            type: DataTypes.DATE,
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+            type: "TIMESTAMP"
         },
         updated_at: {
-            type: DataTypes.DATE,
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
+            type: "TIMESTAMP"
         },
         created_by: {
             type: Sequelize.INTEGER

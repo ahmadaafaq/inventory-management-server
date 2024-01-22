@@ -15,7 +15,7 @@ const AddressModel = sequelize.define(
     {
         parent: {
             type: Sequelize.ENUM,
-            values: ['user', 'warehouse', 'vendor','product']
+            values: ['user', 'warehouse', 'vendor','product','inventory']
         },
         parent_id: {
             type: Sequelize.INTEGER
@@ -39,12 +39,11 @@ const AddressModel = sequelize.define(
             type: Sequelize.INTEGER
         },
         created_at: {
-            type: DataTypes.DATE,
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+            type: "TIMESTAMP"
         },
         updated_at: {
-            type: DataTypes.DATE,
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
+            type:  "TIMESTAMP"
+           
         },
         created_by: {
             type: Sequelize.INTEGER

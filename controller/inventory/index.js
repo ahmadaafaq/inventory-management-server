@@ -21,7 +21,7 @@ const inventoryController = {
     },
     /** Get users from database based on page, size and search if provided
      */
-    getInventory: (req, res) => {
+    getInventories: (req, res) => {
         const { page, size, search } = req.query;
         const { limit, offset } = Utility.getPagination(parseInt(page), parseInt(size));
         let searchCond = {};
@@ -29,6 +29,11 @@ const inventoryController = {
         if (search) {
             searchCond = {
                 [Op.or]: [
+                    {
+                        name: {
+                            [Op.like]: `%${search}%`
+                        }
+                    },
                     {
                         available_quantity: {
                             [Op.like]: `%${search}%`

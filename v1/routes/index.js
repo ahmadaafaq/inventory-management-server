@@ -31,7 +31,7 @@ router.patch('/update-warehouse', warehouseController.updateWarehouse);
 
 // //-----------------------------------INVENTORY---------------------------------------
 router.post('/create-inventory', inventoryController.createInventory);
-router.get('/get-inventory', inventoryController.getInventory);
+router.get('/get-inventories', inventoryController.getInventories);
 router.patch('/update-inventory', inventoryController.updateInventory);
 
 // //-----------------------------------ORDER---------------------------------------

@@ -55,16 +55,25 @@ const Utility = {
         };
     },
 
-     /**
-     * Get Schema Model according to tableName
-     * @param {String} tableName 
-     * @return {Object} Schema Model
-     */
-     getModel: (tableName) => {
+    /**
+    * Get Schema Model according to tableName
+    * @param {String} tableName 
+    * @return {Object} Schema Model
+    */
+    getModel: (tableName) => {
         let model;
         switch (tableName) {
             case 'vendor':
                 model = require("../model/vendor");
+                break;
+            case 'product':
+                model = require("../model/product");
+                break;
+            case 'warehouse':
+                model = require("../model/warehouse");
+                break;
+            case 'inventory':
+                model = require("../model/inventory");
                 break;
             default:
                 break;

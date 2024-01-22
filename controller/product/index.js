@@ -12,9 +12,11 @@ const productController = {
         return new Promise((resolve, reject) => {
             ProductModel.create({ ...payload })
                 .then(product => {
+                    console.log('produccctttt=>',product);
                     resolve(res.status(200).send(Utility.formatResponse(200, { id: product.id })));
                 })
                 .catch(err => {
+                    console.log('errrrrooor=>',err);
                     resolve(res.status(409).send(Utility.formatResponse(409, "Error")));
                 });
         });
