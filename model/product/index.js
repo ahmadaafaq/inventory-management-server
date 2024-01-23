@@ -33,6 +33,10 @@ const ProductModel = sequelize.define(
         quantity: {
             type: Sequelize.INTEGER
         },
+        status:{
+            type:Sequelize.ENUM,
+            values:['active','inactive']
+        },
         created_at: {
             type: "TIMESTAMP"
         },

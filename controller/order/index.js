@@ -30,10 +30,46 @@ const orderController = {
             searchCond = {
                 [Op.or]: [
                     {
-                        date: {
+                        warehouse_id: {
                             [Op.like]: `%${search}%`
                         }
-                    }
+                    },
+                    {
+                        vendor_id: {
+                            [Op.like]: `%${search}%`
+                        }
+                    },
+                    {
+                        product_id: {
+                            [Op.like]: `%${search}%`
+                        }
+                    },
+                    {
+                        quantity: {
+                            [Op.like]: `%${search}%`
+                        }
+                    },
+                    {
+                        order_code: {
+                            [Op.like]: `%${search}%`
+                        }
+                    },
+                    {
+                        order_date: {
+                            [Op.like]: `%${search}%`
+                        }
+                    },
+                    {
+                        delivery_date: {
+                            [Op.like]: `%${search}%`
+                        }
+                    },
+                    {
+                        status: {
+                            [Op.like]: `%${search}%`
+                        }
+                    },
+                   
                 ]
             };
         }
@@ -65,7 +101,7 @@ const orderController = {
         const payload = req.body;
 
         return new Promise((resolve, reject) => {
-            OrderModel.update({ ...payload }, { where: { id: req.body.id} })
+            OrderModel.update({ ...payload }, { where: { id: req.body.id } })
                 .then(updatedData => {
                     resolve(res.status(200).send(Utility.formatResponse(200, `Updated Successfully`)));
                 })

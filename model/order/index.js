@@ -13,27 +13,31 @@ const sequelize = require("../../sequelize");
 const OrderModel = sequelize.define(
     'order',     //table name
     {
-        date: {
+        warehouse_id: {
+            type: Sequelize.INTEGER
+        },
+        vendor_id: {
+            type: Sequelize.INTEGER
+        },
+        product_id:{
+            type: Sequelize.INTEGER
+        },
+        quantity:{
+            type: Sequelize.INTEGER
+        },
+        order_code:{
+            type: Sequelize.STRING
+        },
+        order_date:{
             type: "TIMESTAMP"
+        },
+        delivery_date:{
+            type: Sequelize.DATE
         },
         status:{
             type:Sequelize.ENUM,
             values:['active','inactive']
         },
-        created_at: {
-            type: DataTypes.DATE,
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-        },
-        updated_at: {
-            type: DataTypes.DATE,
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
-        },
-        created_by: {
-            type: Sequelize.INTEGER
-        },
-        updated_by: {
-            type: Sequelize.INTEGER
-        }
     },
     {
         timestamps: false,

@@ -75,6 +75,9 @@ const Utility = {
             case 'inventory':
                 model = require("../model/inventory");
                 break;
+            case 'order':
+                model = require("../model/inventory");
+                break;
             default:
                 break;
         };
